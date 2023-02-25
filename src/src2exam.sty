@@ -1,0 +1,134 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{src2exam}[2023/02/27 Source2Exam]
+
+\RequirePackage{etoolbox}
+\RequirePackage{xparse}
+
+\RequirePackage[headsepline]{scrlayer-scrpage}
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
+\tcbuselibrary{theorems}
+\tcbuselibrary{xparse}
+
+% language options
+\newtoggle{srcexam@lang@de}
+\newtoggle{srcexam@lang@en}
+\newtoggle{srcexam@lang@none}
+\toggletrue{srcexam@lang@none}
+\newcommand{\iflangde}[1]{\iftoggle{srcexam@lang@de}{#1}{}}
+\newcommand{\iflangen}[1]{\iftoggle{srcexam@lang@en}{#1}{}}
+\def\srcexam@langerror{\PackageError{src2exam}{Options 'de' and 'en' are mutually exclusive}}
+\DeclareOption{de}{
+    \iflangen{\srcexam@langerror}
+    \toggletrue{srcexam@lang@de}
+    \togglefalse{srcexam@lang@none}
+}
+\DeclareOption{en}{
+    \iflangde{\srcexam@langerror}
+    \toggletrue{srcexam@lang@en}
+    \togglefalse{srcexam@lang@none}
+}
+
+% activate or deactivate solution
+\newtoggle{srcexam@solutionsenabled}
+\DeclareOption{solutions}{
+    \toggletrue{srcexam@solutionsenabled}
+}
+\newcommand{\startSolution}{\tcblower\tcbsubtitle{\theSolutioncaption}}
+
+\ProcessOptions\relax
+
+% Select default language if no language option has been specified.
+\iftoggle{srcexam@lang@none}{\toggletrue{srcexam@lang@en}}{\togglefalse{srcexam@lang@none}}
+
+% macros for front matter
+\newcommand{\course}[1]{\def\theCourse{#1}}
+\newcommand{\examtype}[1]{\def\theExamtype{#1}}
+\newcommand{\institution}[1]{\def\theInstitution{#1}}
+\newcommand{\lecture}[1]{\def\theLecture{#1}}
+
+% macros for use in tasks
+\newcommand{\taskheading}[1]{\def\theTaskheading{#1}}
+\newcommand{\scorestring}[1]{\def\theScorestring{#1}}
+\newcommand{\solutioncaption}[1]{\def\theSolutioncaption{#1}}
+\newcommand{\hintcaption}[1]{\def\theHintcaption{#1}}
+\newcommand{\remarkcaption}[1]{\def\theRemarkcaption{#1}}
+
+% Set default strings for languages.
+\iflangen{
+    \course{\lbrack Course Name\rbrack}
+    \examtype{Written Exam}
+    \institution{\lbrack Institute Name\rbrack}
+    \lecture{\lbrack Lecture Name\rbrack}
+    \author{\lbrack Author\rbrack}
+    \date{\lbrack Date\rbrack}
+    \title{\theExamtype\ for the lecture \theLecture}
+    \taskheading{Task}
+    \scorestring{Points}
+    \solutioncaption{Solution}
+    \hintcaption{Hint}
+    \remarkcaption{Remark}
+}
+
+\iflangde{
+    \course{\lbrack Kursname\rbrack}
+    \examtype{Klausur}
+    \institution{\lbrack Institutsname\rbrack}
+    \lecture{\lbrack Vorlesungsname\rbrack}
+    \author{\lbrack Autor\rbrack}
+    \date{\lbrack Datum\rbrack}
+    \title{\theExamtype\ zur Vorlesung \theLecture}
+    \taskheading{Aufgabe}
+    \scorestring{Punkte}
+    \solutioncaption{Lösung}
+    \hintcaption{Hinweis}
+    \remarkcaption{Anmerkung}
+}
+
+% Define page header.
+\ohead{\theCourse}
+\chead{\theExamtype}
+\ihead{\theLecture}
+
+% Styling macros
+\newcommand{\hint}[1]{\textbf{\theHintcaption:} #1}
+\newcommand{\remark}[1]{\textit{\theRemarkcaption:} #1}
+
+% Task environment using tcolorbox.
+\newcounter{task}
+\NewTColorBox{task}{ O{} o !O{\thetask} }{
+    % #1: task description
+    % #2: max score
+    % #3: label
+    enhanced,
+    breakable,
+    frame hidden,
+    interior hidden,
+    sharpish corners,
+    coltitle=black,colbacktitle=black!10,fonttitle=\bfseries,
+    subtitle style={enhanced, frame hidden},
+    theorem={\theTaskheading}{task}{#1}{task:#3},
+    after title={\IfValueT{#2}{\hfill (#2 \theScorestring)}},
+    lowerbox=\iftoggle{srcexam@solutionsenabled}{visible}{ignored},
+    lower separated=false,
+}
+
+% A macro for setting the directory where to look for tasks. Default: 'tasks'
+\newcommand{\settaskdirectory}[1]{\def\taskdir{#1}}
+\settaskdirectory{tasks}
+
+% Uses a task from a subdirectory. Expects the file basename and directory to be identical.
+\NewDocumentCommand{\inputtask}{ m o o o O{#1} }{
+    % #1: directory
+    % #2: task description
+    % #3: max score
+    % #4: custom label
+    % #5: filename
+    \begin{task}[#2][#3][#4]
+        \input{\taskdir/#1/#5}
+    \end{task}
+}
+
+\endinput

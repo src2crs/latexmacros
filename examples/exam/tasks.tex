@@ -1,0 +1,28 @@
+\newcommand{\captionstring}{
+    \iflangde{Beschreibung}
+    \iflangen{Caption}
+}
+
+% Task with description and max score.
+\inputtask{task1}[\captionstring][10]
+
+
+% Task without description and with max score.
+% Imported from a file with a custom name.
+\inputtask{task2}[][20][][customfilename.suffix]
+
+% Task with description, max score, and custom label.
+\inputtask{task3}[\captionstring][30][customlabel]
+
+
+% Task with description, without max score and custom label.
+\inputtask{task4}[\captionstring]
+
+% Task that is defined locally and not imported.
+\begin{task}[\captionstring][50]
+    % #1: task description
+    % #2: max score
+    % #3: label
+    \iflangde{Aufgabe, die nicht in einer eigenen Datei steht.}
+    \iflangen{Task that's not defined in a separate file.}
+\end{task}

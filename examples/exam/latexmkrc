@@ -1,0 +1,14 @@
+#!/usr/bin/env perl
+$pdflatex = 'pdflatex -interaction=nonstopmode';
+$pdf_mode = 1;
+$do_cd = 1;
+$out_dir = build;
+$clean_ext = 'snm nav synctex.gz';
+@default_files = (
+  'exam-de.tex',
+  'exam-de-solutions.tex',
+  'exam-en.tex',
+  'exam-en-solutions.tex',
+  'exam-nolang.tex',
+  'exam-nolang-solutions.tex',
+);
