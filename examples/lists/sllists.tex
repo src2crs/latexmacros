@@ -1,0 +1,27 @@
+\section{Singly Linked Lists}
+
+% TODO: Find a way to fix the height of the line starting points.
+% Could also use a separate node instead of multipart.
+
+\begin{tikzpicture}[*->, start chain, very thick]
+  \node[list,on chain] (A) {12};
+  \node[list,on chain] (B) {99};
+  \node[list,on chain] (C) {37};
+  \node[pointerbox,on chain] (D) {};
+  \node[emptynode]   (E) [right=of D] {};
+  \draw (A.two) |- (B);
+  \draw (B.two) -- (C);
+  %\draw (B.two) |- (C);
+  %\draw[->] (C.two) -- (D);
+  %\node at (C.two) [circle,fill,inner sep=1.5pt](E){};
+  %\draw[->] (E) -- (D);
+  \node at (D.center) [circle,fill,inner sep=2.5pt](F){};
+  \draw[->] (F) -- (E);
+  %\draw let \p1 = (C), \p2 = (C.center) in (\x1,\y2) -- (D);
+  %\draw let \p1 = (C.two), \p2 = (C.center) in (\x1,\y2) -- (D);
+\end{tikzpicture}
+
+\todo[inline]{
+  Find a way to fix the height of the line starting points in multipart nodes.
+  Or use a separate node instead of multipart.
+}
