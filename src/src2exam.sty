@@ -39,6 +39,13 @@
 }
 \newcommand{\startSolution}{\tcblower\tcbsubtitle{\theSolutioncaption}}
 
+% select whether each task should be on a separate page
+\newtoggle{srcexam@separatepages}
+\newcommand{\ifseparatepages}[1]{\iftoggle{srcexam@separatepages}{#1}{}}
+\DeclareOption{separatepages}{
+    \toggletrue{srcexam@separatepages}
+}
+
 \ProcessOptions\relax
 
 % Select default language if no language option has been specified.
@@ -114,6 +121,7 @@
     after title={\IfValueT{#2}{\hfill (#2 \theScorestring)}},
     lowerbox=\ifsolutionsenabled{visible}{ignored},
     lower separated=false,
+    before={\ifsolutionsenabled{\newpage}{} \ifseparatepages{\newpage}},
 }
 
 % A macro for setting the directory where to look for tasks. Default: 'tasks'
