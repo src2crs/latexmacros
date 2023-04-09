@@ -33,6 +33,7 @@
 
 % activate or deactivate solution
 \newtoggle{srcexam@solutionsenabled}
+\newcommand{\ifsolutionsenabled}[2]{\iftoggle{srcexam@solutionsenabled}{#1}{#2}}
 \DeclareOption{solutions}{
     \toggletrue{srcexam@solutionsenabled}
 }
@@ -111,7 +112,7 @@
     subtitle style={enhanced, frame hidden},
     theorem={\theTaskheading}{task}{#1}{task:#3},
     after title={\IfValueT{#2}{\hfill (#2 \theScorestring)}},
-    lowerbox=\iftoggle{srcexam@solutionsenabled}{visible}{ignored},
+    lowerbox=\ifsolutionsenabled{visible}{ignored},
     lower separated=false,
 }
 
