@@ -77,4 +77,15 @@
 \newcommand{\code}[1]{\texttt{#1}}
 \newcommand{\codeoutput}[1]{\code{#1}}
 
+% Allow german special characters in listings
+\lstset{literate=%
+  {Ö}{{\"O}}1
+  {Ä}{{\"A}}1
+  {Ü}{{\"U}}1
+  {ß}{{\ss}}1
+  {ü}{{\"u}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+}
+
 \endinput
