@@ -3,11 +3,12 @@
 
 \newcommand{\gqq}[1]{\glqq #1\grqq\ }
 
-\newcommand{\oconst}{\ensuremath{O(1)}}
-\newcommand{\olog}[1][n]{\ensuremath{O(\log{#1})}}
-\newcommand{\olin}[1][n]{\ensuremath{O(#1)}}
-\newcommand{\osquare}[1][n]{\ensuremath{O({#1}^2)}}
-\newcommand{\onlog}[1][n]{\ensuremath{O({#1}\log{#1})}}
+\newcommand{\bigo}[1]{\ensuremath{O({#1})}}
+\newcommand{\oconst}{\bigo{1}}
+\newcommand{\olog}[1][n]{\bigo{\log{#1}}}
+\newcommand{\olin}[1][n]{\bigo{#1}}
+\newcommand{\osquare}[1][n]{\bigo{{#1}^2}}
+\newcommand{\onlog}[1][n]{\bigo{{#1}\log{#1}}}
 
 \newenvironment{defblock}[1]{\begin{block}{Definition: \alert{#1}}}{\end{block}}
 \newenvironment{exblock}[1]{\begin{block}{Beispiel: #1}}{\end{block}}
