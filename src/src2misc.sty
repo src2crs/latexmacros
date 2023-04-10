@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{src2misc}[2023/03/01 Source2Misc]
+\ProvidesPackage{src2misc}[2023/04/10 Source2Misc]
 
 \newcommand{\gqq}[1]{\glqq #1\grqq\ }
 
@@ -8,5 +8,7 @@
 \newcommand{\olin}[1][n]{\ensuremath{O(#1)}}
 \newcommand{\osquare}[1][n]{\ensuremath{O({#1}^2)}}
 \newcommand{\onlog}[1][n]{\ensuremath{O({#1}\log{#1})}}
+
+\newenvironment{defblock}[1]{\begin{block}{Definition: \alert{#1}}}{\end{block}}
 
 \endinput
