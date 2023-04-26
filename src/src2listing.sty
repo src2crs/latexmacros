@@ -78,10 +78,11 @@
 \listingbackground{black!3}
 
 % The actual listing environment.
-\NewTCBInputListing{\inputsrcfile}{ O{examlisting} m !O{} }{
+\NewTCBInputListing{\inputsrcfile}{ O{examlisting} m O {} !O{} }{
     % #1: the listing's style
     % #2: the file name to input
     % #3: the line range to use
+    % #4: additional options for the tcolorbox
     enhanced,
     boxrule=0.5pt,
     frame hidden,
@@ -92,6 +93,7 @@
         linerange={#3},
         style=#1,
     },
+    #4,
 }
 
 % macros for inline listings
