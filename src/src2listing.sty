@@ -71,6 +71,12 @@
 %% TODO: Add different styles for different use cases (slides, exam, etc.)
 %% TODO: Make background configurable for different use cases (slides, exam, handout, greyscale, etc.)
 
+% Sets the default background for listings.
+\newcommand{\listingbackground}[1]{
+    \def\srclisting@listing@background{#1}
+}
+\listingbackground{black!3}
+
 % The actual listing environment.
 \NewTCBInputListing{\inputsrcfile}{ O{examlisting} m !O{} }{
     % #1: the listing's style
@@ -79,7 +85,7 @@
     enhanced,
     boxrule=0.5pt,
     frame hidden,
-    colback=black!3,
+    colback=\srclisting@listing@background,
     listing only,
     listing file = #2,
     listing options = {
